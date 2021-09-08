@@ -1,0 +1,38 @@
+{
+  "name": "cath",
+  "version": "1.1.0",
+  "description": "A powerful package that can interact with Cath API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon .",
+    "start": "node .",
+    "node-update": "npm i --save-dev node@16 && npm config set prefix=$(pwd)/node_modules/node && export PATH=$(pwd)/node_modules/node/bin:$PATH",
+    "node-clean": "rm -rf node_modules && rm package-lock.json && npm cache clear --force && npm cache clean --force && npm i",
+    "node-update-then-clean": "npm run node-update && npm run node-clean-cache",
+    "canvas": "npm uninstall canvas && npm i canvas",
+    "all": "npm run node-update && npm run node-clean && npm uninstall canvas && npm i canvas && node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CathTeam/cath.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CathTeam/cath/issues"
+  },
+  "homepage": "https://github.com/CathTeam/cath#readme",
+  "keywords": [
+    "cath",
+    "cath.exe",
+    "cat",
+    "api",
+    "discord",
+    "codm"
+  ],
+  "author": "Ń1ght#0001",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "discord.js": "^13.1.0"
+  }
+}
