@@ -1,5 +1,5 @@
 {
-  "name": "cath",
+  "name": "cath.js",
   "version": "1.1.2-dev",
   "description": "A powerful package that can interact with Cath API",
   "main": "./dist/index.js",
