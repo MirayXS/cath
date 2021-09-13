@@ -7,5 +7,5 @@ declare module "cath" {
 
     public getperk(perk: string): Promise<object>;
   }
-  export async function random8ball(): Promise<string>;
+  export function random8ball(): Promise<string>;
 }
