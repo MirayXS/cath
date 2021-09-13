@@ -1,11 +1,13 @@
 {
-  "name": "cath",
+  "name": "cath.js",
   "version": "1.1.0",
   "description": "A powerful package that can interact with Cath API",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon .",
+    "build": "tsc",
     "start": "node .",
     "node-update": "npm i --save-dev node@16 && npm config set prefix=$(pwd)/node_modules/node && export PATH=$(pwd)/node_modules/node/bin:$PATH",
     "node-clean": "rm -rf node_modules && rm package-lock.json && npm cache clear --force && npm cache clean --force && npm i",
@@ -34,5 +36,11 @@
   "dependencies": {
     "axios": "^0.21.4",
     "discord.js": "^13.1.0"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^16.2.13",
+    "ts-node": "^10.2.1",
+    "typedoc": "^0.21.9",
+    "typescript": "^4.4.3"
   }
 }

@@ -1,26 +1,23 @@
-const axios = require("axios");
-const config = require("../utils/config.json");
+import axios from "axios";
+import config from "../utils/config.json";
+import { CODMClientOptions } from "./codmclient.interface";
 /**
- * @class APIClient
- **/
-class APIClient {
-  /**
-   * @name APIClient
-   * @kind constructor
-   * @param {String} key Authorization Key for API (Only for CODM commands)
-   * @param {String} [options.key]
-   */
-  constructor(key, options = {}) {
+ * @name APIClient
+ * @kind constructor
+ * @param {String} key Authorization Key for API (Only for CODM commands)
+ */
+export class CODMClient {
+  public key: CODMClientOptions;
+  constructor(key: CODMClientOptions) {
     if (key && typeof key !== "string")
       throw new TypeError("API key must be a string");
-    if (key) this.key = key;
   }
   /**
    * Sends a CODM perk object
-   * @returns {Promise<Object>}
+   * @return {Promise<Object>}
    * @param {String} name
    */
-  async getperk(name) {
+  public async getperk(name: string): Promise<object> {
     const data = await axios
       .get(`${config.api}/api/v1/codm/perks?name=${name}`, {
         headers: {
@@ -32,4 +29,3 @@ class APIClient {
     return data;
   }
 }
-module.exports = APIClient;

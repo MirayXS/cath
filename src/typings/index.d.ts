@@ -1,14 +1,11 @@
+import { CODMClientOptions } from "../CODMClient";
 declare module "cath" {
-  export class APIClient {
-    public constructor(key: string, options?: APIClientOptions);
+  export class CODMClient {
+    public constructor(key: CODMClientOptions);
 
     private key: string;
-    public options?: APIClientOptions;
 
-    public random8ball(): Promise<String>;
-    public getperk(perk: string): Promise<Object>;
+    public getperk(perk: string): Promise<object>;
   }
-  export type APIClientOptions = {
-    codm?: string;
-  };
+  export async function random8ball(): Promise<string>;
 }
