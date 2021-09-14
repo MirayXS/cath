@@ -1,14 +1,12 @@
 import axios from "axios";
 import config from "../utils/config.json";
-import { CODMClientOptions } from "./codmclient.interface";
 /**
  * @name APIClient
  * @kind constructor
  * @param {String} key Authorization Key for API (Only for CODM commands)
  */
 export class CODMClient {
-  public key: CODMClientOptions;
-  constructor(key: CODMClientOptions) {
+  constructor(public key: string) {
     if (key && typeof key !== "string")
       throw new TypeError("API key must be a string");
   }
