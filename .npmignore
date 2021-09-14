@@ -1,17 +1,7 @@
 src
 tsconfig.json
-# Packages
-node_modules/
+node_modules
 package-lock.json
-
-# Log files
-logs/
-*.log
-
-# Environment
-.env
-
-# Miscellaneous
-.tmp/
-.vscode/
-.DS_Store
+.gitignore
+LICENSE
+.github
