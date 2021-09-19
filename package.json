@@ -1,6 +1,6 @@
 {
   "name": "cath",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "A powerful package that can interact with Cath API",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -9,6 +9,7 @@
     "dev": "nodemon .",
     "build": "tsc",
     "start": "node .",
+    "docs": "npx typedoc src/index.ts",
     "node-update": "npm i --save-dev node@16 && npm config set prefix=$(pwd)/node_modules/node && export PATH=$(pwd)/node_modules/node/bin:$PATH",
     "node-clean": "rm -rf node_modules && rm package-lock.json && npm cache clear --force && npm cache clean --force && npm i",
     "node-update-then-clean": "npm run node-update && npm run node-clean-cache",
