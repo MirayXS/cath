@@ -7,4 +7,4 @@ export {
   starMessageData,
 } from "./StarboardClient/index";
 export { random8ball } from "./functions/8ball";
-export { getreddit } from "./functions/reddit";
+export { getreddit, RedditObject } from "./functions/reddit";
