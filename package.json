@@ -33,7 +33,7 @@
     "codm"
   ],
   "author": "Ń1ght#0001",
-  "license": "Apache-2.0",
+  "license": "CC-BY-NC-SA-4.0",
   "dependencies": {
     "axios": "^0.21.4",
     "discord.js": "^13.1.0",
