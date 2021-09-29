@@ -1,4 +1,4 @@
-<h1 align="center"> CATH </h1> 
+<h1 align="center"> CATH </h1>
 
 <!-- header -->
 <p align="center">
@@ -14,7 +14,6 @@
     <a href="https://npmjs.org/package/cath" target="_blank"><img alt='Node Package' src="https://nodei.co/npm/cath.png"></a>
 </p>
 
-
 **Cath** is a powerful [Node.js](https://nodejs.org) module that can easily interact and get data from the Cath API
 If you like this package, feel free to <img src = "https://discord.com/assets/141d49436743034a59dec6bd5618675d.svg" width = "16"> **Star** and **fork** this repository.<br><br>
 
@@ -22,13 +21,13 @@ If you like this package, feel free to <img src = "https://discord.com/assets/14
 
 Download from npm
 
-```cli
+```powershell
 npm install cath
 ```
 
 Download from yarn
 
-```cli
+```powershell
 yarn add cath
 ```
 

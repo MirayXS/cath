@@ -1,9 +1,9 @@
 import axios from "axios";
 /**
  * Sends an embed of reddit
- * @return {Promise<Object>}
+ * @return {Promise<RedditObject>}
  */
-export async function getreddit(sub: string): Promise<object> {
+export async function getreddit(sub: string): Promise<RedditObject> {
   const content = await axios
     .get(`https://www.reddit.com/r/${sub}/random/.json`)
     .then(res => res.data);
@@ -14,11 +14,17 @@ export async function getreddit(sub: string): Promise<object> {
   let memeUpvotes = content[0].data.children[0].data.ups;
   let memeDownvotes = content[0].data.children[0].data.downs;
   let memeNumComments = content[0].data.children[0].data.num_comments;
-  const obj: object = {
-    title: `A cat image | ${memeTitle}`,
-    url: `${memeURL}`,
+  const obj: RedditObject = {
+    title: memeTitle,
+    url: memeURL,
     image: memeImage,
     footer: ` 👍 ${memeUpvotes} 💬 ${memeNumComments}`,
   };
   return obj;
+}
+export interface RedditObject {
+  title: String;
+  url: String;
+  image: String;
+  footer: String;
 }

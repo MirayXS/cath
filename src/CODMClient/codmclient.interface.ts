@@ -4,3 +4,9 @@ export interface CODMClientOptions {
    */
   key: string;
 }
+export interface PerkData {
+  name: string;
+  perk: string;
+  effects: string;
+  type: string;
+}

@@ -1,5 +1,6 @@
 import axios from "axios";
 import config from "../utils/config.json";
+import { PerkData } from "./codmclient.interface";
 /**
  * @name APIClient
  * @kind constructor
@@ -12,10 +13,10 @@ export class CODMClient {
   }
   /**
    * Sends a CODM perk object
-   * @return {Promise<Object>}
+   * @return {Promise<PerkData>}
    * @param {String} name
    */
-  public async getperk(name: string): Promise<object> {
+  public async getperk(name: string): Promise<PerkData> {
     const data = await axios
       .get(`${config.api}/api/v1/codm/perks?name=${name}`, {
         headers: {
