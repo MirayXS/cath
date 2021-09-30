@@ -101,11 +101,7 @@ export class StarboardClient {
     if (reaction.message.partial) await reaction.message.fetch();
     if (reaction.partial) await reaction.fetch();
     const { guildId, id } = reaction.message;
-    if (
-      reaction.emoji.name !== "⭐"
-      // ||reaction.count < this.getData(guildId)?.options.starCount
-    )
-      return;
+    if (reaction.emoji.name !== "⭐") return;
     const data = this.cache.get(guildId) || [];
     const starboardChannel = this.client.channels.cache.get(
       this.guilds.find(x => x.id === guildId)?.options.starboardChannel

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { CathError } from "../Error/CathError";
 import config from "../utils/config.json";
 import { PerkData } from "./codmclient.interface";
 /**
@@ -8,8 +9,9 @@ import { PerkData } from "./codmclient.interface";
  */
 export class CODMClient {
   constructor(public key: string) {
+    if (!key) throw new CathError("Missing 'key' property");
     if (key && typeof key !== "string")
-      throw new TypeError("API key must be a string");
+      throw new CathError("API key must be a string");
   }
   /**
    * Sends a CODM perk object
@@ -24,7 +26,9 @@ export class CODMClient {
         },
       })
       .then(res => res.data)
-      .catch(err => console.error(`Unauthorized to use`));
+      .catch(err => {
+        throw new CathError(`Unauthorized to use`);
+      });
     return data;
   }
 }

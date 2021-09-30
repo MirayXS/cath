@@ -4,6 +4,7 @@ import axios from "axios";
  * @return {Promise<RedditObject>}
  */
 export async function getreddit(sub: string): Promise<RedditObject> {
+  if (!sub) throw new Error("Cath Error: Missing Subreddit");
   const content = await axios
     .get(`https://www.reddit.com/r/${sub}/random/.json`)
     .then(res => res.data);

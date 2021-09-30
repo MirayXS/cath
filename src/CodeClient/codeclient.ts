@@ -1,6 +1,7 @@
 import axios from "axios";
 import config from "../utils/config.json";
 import { CodeData } from "./codeclient.interface";
+import { CathError } from "../Error/CathError";
 /**
  * @name CodeClient
  * @kind constructor
@@ -9,7 +10,7 @@ export class CodeClient {
   constructor() {}
   /**
    * Sends the link of the code
-   * @return {Promise<Data>}
+   * @return {Promise<CodeData>}
    * @param {String} title
    * @param {String} description
    * @param {String} code
@@ -19,6 +20,9 @@ export class CodeClient {
     description: String,
     code: String
   ): Promise<CodeData> {
+    if (!title) throw new CathError("Missing 'title' property");
+    if (!description) throw new CathError("Missing 'description' property");
+    if (!code) throw new CathError("Missing 'code' property");
     const data = await axios
       .post(`${config.code}/botcreate`, {
         title,
@@ -26,6 +30,10 @@ export class CodeClient {
         code,
       })
       .then(res => res.data);
-    return data;
+    if (data?.name) {
+      return data?.name;
+    } else {
+      throw new CathError(`Code already exist`);
+    }
   }
 }
