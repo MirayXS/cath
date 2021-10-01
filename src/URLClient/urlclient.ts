@@ -28,8 +28,6 @@ export class URLClient {
       .then(res => res.data);
     if (data?.name) {
       return data?.name;
-    } else {
-      throw new CathError(`Code already exist`);
     }
   }
 }
