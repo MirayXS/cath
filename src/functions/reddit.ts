@@ -1,10 +1,10 @@
 import axios from "axios";
+import { CathError } from "../Error/CathError";
 /**
  * Sends an embed of reddit
- * @return {Promise<RedditObject>}
  */
 export async function getreddit(sub: string): Promise<RedditObject> {
-  if (!sub) throw new Error("Cath Error: Missing Subreddit");
+  if (!sub) throw new CathError("Missing Subreddit");
   const content = await axios
     .get(`https://www.reddit.com/r/${sub}/random/.json`)
     .then(res => res.data);

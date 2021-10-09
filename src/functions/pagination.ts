@@ -1,5 +1,6 @@
 import { Message, MessageEmbed, User } from "discord.js";
 export class Pagination {
+  constructor() {}
   public chunk(arr, size: number) {
     const temp = [];
     for (let i = 0; i < arr.length; i += size) {
@@ -8,9 +9,7 @@ export class Pagination {
     return temp;
   }
 
-  get paginationEmojis() {
-    return ["◀", "⛔", "▶"];
-  }
+  private paginationEmojis: ["◀", "⛔", "▶"];
 
   public async pagination(
     msg: Message,
