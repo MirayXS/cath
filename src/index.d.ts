@@ -14,7 +14,7 @@ export {
   GiveawaysClientOptions,
   DefaultGiveawayMessages,
 } from "./GiveawaysClient";
-
+export { ImageClient } from "./ImageClient/index";
 export { random8ball } from "./functions/8ball";
 export { getreddit, RedditObject } from "./functions/reddit";
 export { Pagination } from "./functions/pagination";
