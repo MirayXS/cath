@@ -5,16 +5,10 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon .",
     "build": "tsc",
     "start": "node .",
-    "docs": "npx typedoc src/index.ts",
-    "node-update": "npm i --save-dev node@16 && npm config set prefix=$(pwd)/node_modules/node && export PATH=$(pwd)/node_modules/node/bin:$PATH",
-    "node-clean": "rm -rf node_modules && rm package-lock.json && npm cache clear --force && npm cache clean --force && npm i",
-    "node-update-then-clean": "npm run node-update && npm run node-clean-cache",
-    "canvas": "npm uninstall canvas && npm i canvas",
-    "all": "npm run node-update && npm run node-clean && npm uninstall canvas && npm i canvas && node ."
+    "docs": "npx typedoc src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -34,6 +28,10 @@
   ],
   "author": "Ń1ght#0001",
   "license": "CC-BY-NC-SA-4.0",
+  "funding": {
+    "type": "individual",
+    "url": "https://ko-fi.com/cathteam"
+  },
   "dependencies": {
     "axios": "^0.21.4",
     "discord.js": "^13.1.0",
