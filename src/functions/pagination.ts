@@ -9,7 +9,7 @@ export class Pagination {
     return temp;
   }
 
-  private paginationEmojis: ["◀", "⛔", "▶"];
+  public paginationEmojis: ["◀", "⛔", "▶"];
 
   public async pagination(
     msg: Message,
