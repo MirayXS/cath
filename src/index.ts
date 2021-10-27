@@ -26,6 +26,11 @@ export { parseMS, parseString } from "./functions/ms";
 export { confirmation } from "./functions/confirmation";
 export { HHMMSS } from "./functions/HHMMSS";
 export { formatUpper } from "./functions/formatUpper";
+export {
+  DiscordActivity,
+  DiscordActivityOptions,
+  Applications,
+} from "./functions/discord-activity";
 export { cleanText } from "./functions/cleanText";
 export { daysAgo } from "./functions/daysAgo";
 export { sleep } from "./functions/sleep";
