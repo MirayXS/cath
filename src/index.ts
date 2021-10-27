@@ -35,3 +35,6 @@ export { cleanText } from "./functions/cleanText";
 export { daysAgo } from "./functions/daysAgo";
 export { sleep } from "./functions/sleep";
 export { trimArray } from "./functions/trimArray";
+export { superscript } from "./functions/superscript";
+export { doublestruck } from "./functions/doublestruck";
+export { fractur } from "./functions/fractur";

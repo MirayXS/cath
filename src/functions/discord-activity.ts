@@ -28,15 +28,15 @@ export async function DiscordActivity(options: DiscordActivityOptions) {
     spellcast: "852509694341283871",
   };
   if (!all[options.application]) {
-    return new CathError(
+    throw new CathError(
       "Application ID is not valid, if you want to see the list of applications, check the docs at https://cath.js.org/interfaces/Applications.html"
     );
   }
   if (!options.token) {
-    return new CathError("Missing 'token'");
+    throw new CathError("Missing 'token'");
   }
   if (!options.channel_id) {
-    return new CathError("Missing 'Channel ID'");
+    throw new CathError("Missing 'Channel ID'");
   }
   const data = await axios
     .post(
