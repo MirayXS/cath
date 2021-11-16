@@ -21,7 +21,7 @@ export class URLClient {
     if (!shortName) throw new CathError("Missing 'shortName' property");
     if (!targetURL) throw new CathError("Missing 'targetURL' property");
     const data = await axios
-      .post(`${config.url}/create`, {
+      .post(`${config.url}/api/create`, {
         shortUrl: shortName,
         fullUrl: targetURL,
       })

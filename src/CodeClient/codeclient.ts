@@ -24,7 +24,7 @@ export class CodeClient {
     if (!description) throw new CathError("Missing 'description' property");
     if (!code) throw new CathError("Missing 'code' property");
     const data = await axios
-      .post(`${config.code}/botcreate`, {
+      .post(`${config.code}/api/botcreate`, {
         title,
         description,
         code,
