@@ -1,6 +1,6 @@
 {
   "name": "cath",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "A powerful package that can interact with Cath API",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -33,10 +33,10 @@
     "url": "https://ko-fi.com/cathteam"
   },
   "dependencies": {
-    "axios": "^0.21.4",
-    "discord.js": "^13.1.0",
-    "mongoose": "^5.13.9",
-    "typedoc": "^0.22.4"
+    "axios": "^0.25.0",
+    "discord.js": "^13.6.0",
+    "mongoose": "^5.13.10",
+    "typedoc": "^0.22.11"
   },
   "devDependencies": {
     "typescript": "^4.4.3"

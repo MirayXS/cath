@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CathError } from "../Error/CathError";
 import config from "../utils/config.json";
-import { PerkData } from "./codmclient.interface";
+import { PerkData, ScorestreakData } from "./codmclient.interface";
 /**
  * @name APIClient
  * @kind constructor
@@ -21,6 +21,19 @@ export class CODMClient {
   public async getperk(name: string): Promise<PerkData> {
     const data = await axios
       .get(`${config.api}/api/v1/codm/perks?name=${name}`, {
+        headers: {
+          Authorization: this.key,
+        },
+      })
+      .then(res => res.data)
+      .catch(err => {
+        throw new CathError(`Unauthorized to use`);
+      });
+    return data;
+  }
+  public async getscorestreak(name: string): Promise<ScorestreakData> {
+    const data = await axios
+      .get(`${config.api}/api/v1/codm/scorestreak?name=${name}`, {
         headers: {
           Authorization: this.key,
         },

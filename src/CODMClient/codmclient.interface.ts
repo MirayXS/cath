@@ -10,3 +10,13 @@ export interface PerkData {
   effects: string;
   type: string;
 }
+export interface ScorestreakData {
+  name: string;
+  description: string;
+  special: string;
+  cost: number;
+  type: string;
+  manual: boolean;
+  preview: string;
+  preview_video: string;
+}

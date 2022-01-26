@@ -1,4 +1,9 @@
-export { CODMClient, CODMClientOptions, PerkData } from "./CODMClient";
+export {
+  CODMClient,
+  CODMClientOptions,
+  PerkData,
+  ScorestreakData,
+} from "./CODMClient";
 export {
   StarboardClient,
   StarboardClientOptions,
