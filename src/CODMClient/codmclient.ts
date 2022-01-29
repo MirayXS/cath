@@ -20,7 +20,7 @@ export class CODMClient {
    */
   public async getperk(name: string): Promise<PerkData> {
     const data = await axios
-      .get(`${config.api}/api/v1/codm/perks?name=${name}`, {
+      .get(`${config.api}/api/v1/codm/perk?name=${name}`, {
         headers: {
           Authorization: this.key,
         },
