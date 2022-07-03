@@ -9,8 +9,21 @@ export interface GiveawaySchema {
   Award: string;
   Winners: number;
   Ended: boolean;
+  Invites: number;
   Requirements: { Enabled: boolean; Roles?: [string] };
   Clickers: [string];
+}
+export interface InviteSchema {
+  User: string;
+  Invites: [
+    object: {
+      Guild: string;
+      Invite: string;
+      Invited: string;
+      Inviter: string;
+      Uses: number;
+    }
+  ];
 }
 export interface GiveawaysClientOptions {
   /**
@@ -29,7 +42,7 @@ export interface GiveawaysClientOptions {
 export interface DefaultGiveawayMessages {
   dmWinner: true;
   giveaway: "🎉🎉 **GIVEAWAY!** 🎉🎉";
-  giveawayDescription: "🎁 Award: **{award}**\n🎊 Hosted by: {hostedBy}\n⏲️ Winner(s): `{winners}` \n🙏 Entrants: {totalParticipants} \n\n**Requirements:** {requirements}";
+  giveawayDescription: "🎁 Award: **{award}**\n🎊 Hosted by: {hostedBy}\n⏲️ Winner(s): `{winners}` \n🙏 Entrants: {totalParticipants} \n\n**Requirements:** {requirements}\n**Required Invites:** {invites}";
   giveawayFooterImage: "https://emoji.gg/assets/emoji/3461-giveaway.gif";
   winMessage: "congratulations {winners}! You have won **{prize}** from total `{totalParticipants}` entrants!";
   rerolledMessage: "Rerolled! {winner} is the new winner of the giveaway!"; // only {winner} placeholder

@@ -15,9 +15,17 @@ import {
   GiveawaySchema,
   GiveawaysClientOptions,
   DefaultGiveawayMessages,
+  InviteSchema,
 } from "./giveaway.interface";
 import { parseString } from "../functions/ms";
 export class GiveawaysClient {
+  public inviteschema = model<InviteSchema>(
+    "cath-invite",
+    new Schema({
+      User: { type: String, required: true },
+      Invites: { type: Object, required: true },
+    })
+  );
   public schema = model<GiveawaySchema>(
     "cath-giveaways",
     new Schema({
@@ -57,9 +65,14 @@ export class GiveawaysClient {
         type: Boolean,
         default: false,
       },
+      Invites: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
       Requirements: {
         type: Object,
-        default: { Enabled: false, Roles: [] },
+        default: { Enabled: Boolean, Roles: [] },
       },
       Clickers: {
         type: Array,
@@ -92,6 +105,8 @@ export class GiveawaysClient {
     this.client.on("interactionCreate", async interaction => {
       if (interaction.isButton()) {
         let win = "" || [];
+        let L = 0;
+        let no = false;
         if (!interaction.guild) return;
         await (interaction.member as GuildMember).fetch();
         const id = interaction.customId;
@@ -101,6 +116,28 @@ export class GiveawaysClient {
             const data = await this.schema.findOne({
               Message: interaction.message.id,
             });
+            if (data.Invites > 0) {
+              const invitedata = await this.inviteschema.findOne({
+                User: (interaction.member as GuildMember).id,
+              });
+              if (!invitedata) {
+                await interaction.reply({
+                  content: "You have no invites, you can't enter",
+                  ephemeral: true,
+                });
+              } else {
+                L = invitedata.Invites.map(o => o.Uses).reduce((acc, cur) => {
+                  return acc + cur;
+                });
+                if (data.Invites >= L) {
+                  await interaction.reply({
+                    content: "You have not enough invites, you can't enter",
+                    ephemeral: true,
+                  });
+                  no = true;
+                }
+              }
+            }
             if (data.Requirements.Enabled) {
               if (data.Requirements.Roles.length) {
                 const roles = data.Requirements.Roles.map(x =>
@@ -121,39 +158,53 @@ export class GiveawaysClient {
                     )
                     .map(x => `\`${x.name}\``)
                     .join(", ");
-                  interaction.reply({
-                    content: this.GiveawayMessages.nonoRole.replace(
-                      /{requiredRoles}/g,
-                      requiredRoles
-                    ),
-                    ephemeral: true,
-                  });
+                  try {
+                    await interaction.reply({
+                      content: this.GiveawayMessages.nonoRole.replace(
+                        /{requiredRoles}/g,
+                        requiredRoles
+                      ),
+                    });
+                  } catch (e) {
+                    await interaction.followUp({
+                      content: this.GiveawayMessages.nonoRole.replace(
+                        /{requiredRoles}/g,
+                        requiredRoles
+                      ),
+                    });
+                  }
                 }
               }
             }
-            if (!data.Clickers.includes(interaction.user.id)) {
+            if (!data.Clickers.includes(interaction.user.id) && !no) {
               data.Clickers.push(interaction.user.id);
               data.save();
-              interaction
-                .reply({
+              try {
+                await interaction.reply({
                   content: this.GiveawayMessages.newParticipant.replace(
                     /{totalParticipants}/g,
                     data.Clickers.length.toString()
                   ),
-                  ephemeral: true,
-                })
-                .catch();
-            } else {
-              interaction.reply({
+                });
+              } catch (e) {
+                await interaction.followUp({
+                  content: this.GiveawayMessages.newParticipant.replace(
+                    /{totalParticipants}/g,
+                    data.Clickers.length.toString()
+                  ),
+                });
+              }
+            } else if (data.Clickers.includes(interaction.user.id) && !no) {
+              await interaction.followUp({
                 content: this.GiveawayMessages.alreadyParticipated,
-                ephemeral: true,
               });
+            } else if (!data.Clickers.includes(interaction.user.id) && no) {
+            } else if (data.Clickers.includes(interaction.user.id) && no) {
             }
           }
           if (tag[0] === "greroll") {
             if (interaction.user.id !== tag[1])
-              interaction.reply({
-                ephemeral: true,
+              await interaction.reply({
                 content: "Only the host can reroll the giveaway",
               });
             try {
@@ -164,15 +215,17 @@ export class GiveawaysClient {
               );
             } catch (err) {
               console.log(err);
-              interaction.reply({
+              await interaction.reply({
                 content: "⚠️ **Unable To Find That Giveaway**",
-                ephemeral: true,
               });
             }
             if (!win.length)
               interaction.channel.send(this.GiveawayMessages.noParticipants);
             else {
-              interaction.reply({ content: "Rerolled", ephemeral: true });
+              await interaction.reply({
+                content: "Rerolled",
+                ephemeral: true,
+              });
               interaction.channel.send({
                 content: this.GiveawayMessages.rerolledMessage.replace(
                   /{winner}/g,
@@ -193,11 +246,10 @@ export class GiveawaysClient {
           }
           if (tag[0] === "gend") {
             if (interaction.user.id !== tag[1])
-              interaction.reply({
+              await interaction.reply({
                 content: "You Cannot End This Giveaway, Only The Host Can",
-                ephemeral: true,
               });
-            interaction.reply({ content: "Ended", ephemeral: true });
+            await interaction.reply({ content: "Ended", ephemeral: true });
             await this.endByButton(
               this.client,
               interaction.message.id,
@@ -233,7 +285,7 @@ export class GiveawaysClient {
   private async choose(winners: number, msgid: Snowflake, message: Message) {
     const data = await this.getByMessage(msgid);
     const final = [];
-    if (data.Requirements.Enabled == true) {
+    if (data.Requirements.Enabled && data.Invites == 0) {
       const c = data.Clickers.filter(x =>
         this.checkRoles(x, data.Requirements.Roles, message)
       );
@@ -300,7 +352,7 @@ export class GiveawaysClient {
   private async giveawayEmbed(
     client: Client,
     status: string,
-    { host, prize, endAfter, winners, requirements }
+    { host, prize, endAfter, invites, winners, requirements }
   ) {
     const hostedBy =
       client.users.cache.get(host) ||
@@ -320,6 +372,7 @@ export class GiveawaysClient {
         `${
           this.GiveawayMessages.toParticipate
         }\n${this.GiveawayMessages.giveawayDescription
+          .replace(/{invites}/g, invites ? invites : "0")
           .replace(/{requirements}/g, req)
           .replace(/{hostedBy}/g, hostedBy || "Can't find the user")
           .replace(/{award}/g, prize)
@@ -327,45 +380,45 @@ export class GiveawaysClient {
           .replace(/{totalParticipants}/g, "0")}`
       )
       .setColor("RANDOM")
-      .setFooter("Ends", this.GiveawayMessages.giveawayFooterImage)
+      .setFooter({
+        text: "Ends",
+        iconURL: this.GiveawayMessages.giveawayFooterImage,
+      })
       .setTimestamp(Date.now() + parseString(endAfter));
     return embed;
   }
 
   public async create(
     client: Client,
-    { prize, host, winners, endAfter, requirements, Channel }
+    { prize, host, winners, endAfter, invites, requirements, Channel }
   ) {
     if (!client)
-      throw new Error(
-        "NuggiesError: client wasnt provided while creating giveaway!"
-      );
+      throw new CathError("client wasnt provided while creating giveaway!");
     if (!prize)
-      throw new Error(
-        "NuggiesError: prize wasnt provided while creating giveaway!"
-      );
+      throw new CathError("prize wasnt provided while creating giveaway!");
     if (typeof prize !== "string")
-      throw new TypeError("NuggiesError: prize should be a string");
+      throw new TypeError("prize should be a string");
     if (!host)
-      throw new Error(
-        "NuggiesError: host wasnt provided while creating giveaway"
-      );
+      throw new CathError("host wasnt provided while creating giveaway");
     if (!winners)
-      throw new Error(
-        "NuggiesError: winner count wasnt provided while creating giveaway"
+      throw new CathError(
+        "winner count wasnt provided while creating giveaway"
       );
-    if (isNaN(winners))
-      throw new TypeError("NuggiesError: winners should be a Number");
+    if (isNaN(winners)) throw new TypeError("winners should be a Number");
     if (!endAfter)
-      throw new Error(
-        "NuggiesError:  time wasnt provided while creating giveaway"
-      );
+      throw new CathError("time wasnt provided while creating giveaway");
     if (typeof endAfter !== "string")
-      throw new TypeError("NuggiesError: endAfter should be a string");
+      throw new TypeError("endAfter should be a string");
+    if (
+      invites < 0 &&
+      invites == null &&
+      invites == undefined &&
+      typeof invites !== "number"
+    ) {
+      throw new CathError("invites wasnt provided while creating giveaway");
+    }
     if (!Channel)
-      throw new Error(
-        "NuggiesError: channel ID wasnt provided while creating giveaway"
-      );
+      throw new CathError("channel ID wasnt provided while creating giveaway");
     const status = "In Progress";
     const msg = await (client.channels.cache.get(Channel) as TextChannel).send({
       content: this.GiveawayMessages.giveaway,
@@ -375,6 +428,7 @@ export class GiveawaysClient {
           host,
           prize,
           endAfter,
+          invites,
           winners,
           requirements,
         }),
@@ -390,6 +444,7 @@ export class GiveawaysClient {
       Award: prize,
       Start: Date.now(),
       End: Date.now() + parseString(endAfter),
+      Invites: invites,
       Requirements: requirements,
     }).save();
     await this.startTimer(msg, data);
@@ -448,7 +503,7 @@ export class GiveawaysClient {
           .setColor("RANDOM")
           .setTimestamp()
           .setThumbnail(msg.guild.iconURL({ dynamic: true }))
-          .setFooter("Made by Cath Team");
+          .setFooter({ text: "Made by Cath Team" });
         (winners as []).forEach(user => {
           message.guild.members.cache.get(user).send({ embeds: [dmEmbed] });
         });
@@ -494,13 +549,12 @@ export class GiveawaysClient {
     ).messages.fetch(Message);
     const res = await this.end(msg, data, msg);
     if (res == "ENDED")
-      button.reply({
+      await button.followUp({
         content: this.replacePlaceholders(
           this.GiveawayMessages.alreadyEnded,
           data,
           msg
         ),
-        ephemeral: true,
       });
   }
 
@@ -556,7 +610,7 @@ export class GiveawaysClient {
         .setColor("RANDOM")
         .setTimestamp()
         .setThumbnail(msg.guild.iconURL({ dynamic: true }))
-        .setFooter("Made by Cath Team");
+        .setFooter({ text: "Made by Cath Team" });
       (winners as []).forEach(user => {
         message.guild.members.cache
           .get(user)
@@ -607,7 +661,7 @@ export class GiveawaysClient {
       .setColor("RANDOM")
       .setTimestamp()
       .setThumbnail(msg.guild.iconURL({ dynamic: true }))
-      .setFooter("Made by Cath Team");
+      .setFooter({ text: "Made by Cath Team" });
     (chosen as []).forEach(user => {
       client.users.cache.get(user).send({ embeds: [dmEmbed] });
     });
@@ -651,6 +705,7 @@ export class GiveawaysClient {
           embed.description = `${
             this.GiveawayMessages.toParticipate
           }\n${this.GiveawayMessages.giveawayDescription
+            .replace(/{invites}/g, docs[i].Invites.toString())
             .replace(/{requirements}/g, req)
             .replace(/{hostedBy}/g, `<@!${docs[i].HostBy}>`)
             .replace(/{award}/g, docs[i].Award)
@@ -672,6 +727,13 @@ export class GiveawaysClient {
     winners = []
   ) {
     const newString = string
+      .replace(/{invites}/g, data.Invites.toString())
+      .replace(
+        /{requirements}/g,
+        data.Requirements.Enabled
+          ? data.Requirements.Roles.map(x => `<@&${x}>`).join(", ")
+          : "None!"
+      )
       .replace(/{guildName}/g, msg.guild.name)
       .replace(/{totalParticipants}/g, data.Clickers.length.toString())
       .replace(/{award}/g, data.Award)
