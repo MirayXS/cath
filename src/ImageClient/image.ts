@@ -1,4 +1,4 @@
-import config from "../utils/config.json";
+import config from "../";
 /**
  * @name ImageClient
  * @kind constructor

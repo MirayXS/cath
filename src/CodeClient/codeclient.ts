@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "../utils/config.json";
+import config from "../";
 import { CodeData } from "./codeclient.interface";
 import { CathError } from "../Error/CathError";
 /**

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CathError } from "../Error/CathError";
-import config from "../utils/config.json";
+import config from "../";
 /**
  * Sends a superscript-ed word
  */

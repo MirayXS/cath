@@ -43,3 +43,9 @@ export { trimArray } from "./functions/trimArray";
 export { superscript } from "./functions/superscript";
 export { doublestruck } from "./functions/doublestruck";
 export { fractur } from "./functions/fractur";
+let config = {
+  api: "https://cath-api.vercel.app",
+  code: "https://code.night0721.me",
+  url: "https://url.night0721.me",
+};
+export default config;
