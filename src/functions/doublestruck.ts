@@ -2,7 +2,7 @@ import axios from "axios";
 import { CathError } from "../Error/CathError";
 import config from "../";
 /**
- * Sends a 8ball response
+ * Dobulestruck words
  */
 export async function doublestruck(word: string): Promise<string> {
   if (!word) {

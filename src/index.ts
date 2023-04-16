@@ -43,9 +43,16 @@ export { trimArray } from "./functions/trimArray";
 export { superscript } from "./functions/superscript";
 export { doublestruck } from "./functions/doublestruck";
 export { fractur } from "./functions/fractur";
-let config = {
-  api: "https://cath-api.vercel.app",
+export { randomID } from "./functions/randomID";
+const config: ConfigURLS = {
+  api: "https://api.night0721.me",
   code: "https://code.night0721.me",
   url: "https://url.night0721.me",
 };
 export default config;
+
+interface ConfigURLS {
+  api: string;
+  code: string;
+  url: string;
+}
