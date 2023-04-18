@@ -44,6 +44,8 @@ export { superscript } from "./functions/superscript";
 export { doublestruck } from "./functions/doublestruck";
 export { fractur } from "./functions/fractur";
 export { randomID } from "./functions/randomID";
+export { round } from "./functions/round";
+
 const config: ConfigURLS = {
   api: "https://api.night0721.me",
   code: "https://code.night0721.me",

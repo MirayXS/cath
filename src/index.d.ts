@@ -39,3 +39,4 @@ export {
 export { superscript } from "./functions/superscript";
 export { doublestruck } from "./functions/doublestruck";
 export { fractur } from "./functions/fractur";
+export { round } from "./functions/round";
