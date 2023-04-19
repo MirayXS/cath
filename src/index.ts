@@ -48,8 +48,8 @@ export { round } from "./functions/round";
 
 const config: ConfigURLS = {
   api: "https://api.night0721.me",
-  code: "https://code.night0721.me",
-  url: "https://url.night0721.me",
+  code: "https://cdn.night0721.me/api/paste",
+  url: "https://cdn.night0721.me/api/url",
 };
 export default config;
 

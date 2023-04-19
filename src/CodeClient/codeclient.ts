@@ -11,27 +11,20 @@ export class CodeClient {
   /**
    * Sends the link of the code
    * @return {Promise<CodeData>}
-   * @param {String} title
-   * @param {String} description
+   * @param {String} key
    * @param {String} code
    */
-  public async createBin(
-    title: String,
-    description: String,
-    code: String
-  ): Promise<CodeData> {
-    if (!title) throw new CathError("Missing 'title' property");
-    if (!description) throw new CathError("Missing 'description' property");
+  public async createBin(key: String, code: String): Promise<CodeData> {
+    if (!key) throw new CathError("Missing 'key' property");
     if (!code) throw new CathError("Missing 'code' property");
     const data = await axios
-      .post(`${config.code}/api/botcreate`, {
-        title,
-        description,
-        code,
+      .post(config.code, {
+        key,
+        value: code,
       })
       .then(res => res.data);
-    if (data?.name) {
-      return data?.name;
+    if (data?.url) {
+      return data?.url;
     } else {
       throw new CathError(`Code already exist`);
     }
