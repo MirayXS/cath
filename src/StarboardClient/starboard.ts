@@ -8,6 +8,7 @@ import {
   MessageEmbed,
   MessageOptions,
   ColorResolvable,
+  MessageEditOptions,
 } from "discord.js";
 import {
   starMessageData,
@@ -133,7 +134,7 @@ export class StarboardClient {
         starboardChannel.messages
           .fetch(getMessage.id)
           .then(publishedMessage => {
-            publishedMessage.edit(generateEdit);
+            publishedMessage.edit(generateEdit as MessageEditOptions);
           })
           .catch(sendMessage);
       }
