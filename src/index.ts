@@ -45,6 +45,10 @@ export { doublestruck } from "./functions/doublestruck";
 export { fractur } from "./functions/fractur";
 export { randomID } from "./functions/randomID";
 export { round } from "./functions/round";
+export {
+  generatePassword,
+  GeneratePasswordOptions,
+} from "./functions/generatePassword";
 
 const config: ConfigURLS = {
   api: "https://api.night0721.me",
