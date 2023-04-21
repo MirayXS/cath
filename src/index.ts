@@ -49,6 +49,9 @@ export {
   generatePassword,
   GeneratePasswordOptions,
 } from "./functions/generatePassword";
+export { getLilaseDownloads } from "./functions/getLilaseDownloads";
+export { emojify } from "./functions/emojify";
+export { obama } from "./functions/obama";
 
 const config: ConfigURLS = {
   api: "https://api.night0721.me",

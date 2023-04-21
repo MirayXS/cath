@@ -44,3 +44,6 @@ export {
   generatePassword,
   GeneratePasswordOptions,
 } from "./functions/generatePassword";
+export { getLilaseDownloads } from "./functions/getLilaseDownloads";
+export { emojify } from "./functions/emojify";
+export { obama } from "./functions/obama";
