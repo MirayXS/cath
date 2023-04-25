@@ -1,6 +1,6 @@
 {
   "name": "cath",
-  "version": "1.5.18",
+  "version": "1.5.19",
   "description": "A powerful package that can interact with Cath API",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
