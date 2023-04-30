@@ -6,6 +6,6 @@ package-lock.json
 LICENSE
 .github
 docs
-index.js
+test.js
 vercel.json
 README.md
