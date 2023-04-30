@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "../";
+import { config } from "../";
 import { URLData } from "./urlclient.interface";
 import { CathError } from "../Error/CathError";
 /**

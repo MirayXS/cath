@@ -58,10 +58,11 @@ const config: ConfigURLS = {
   code: "https://cdn.night0721.me/api/paste",
   url: "https://cdn.night0721.me/api/url",
 };
-export default config;
 
 interface ConfigURLS {
   api: string;
   code: string;
   url: string;
 }
+
+export { config };

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CathError } from "../Error/CathError";
-import config from "../";
+import { config } from "../";
 /**
  * Sends a 8ball response
  */
