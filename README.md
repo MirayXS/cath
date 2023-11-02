@@ -37,7 +37,7 @@ console.log(answer); // a random answer from 8ball
 
 # License
 
-NullValkyrie is licensed under the GNU Public License v3.0. See [LICENSE](https://github.com/night0721/cath/blob/master/LICENSE) for more information.
+cath is licensed under the GNU Public License v3.0. See [LICENSE](https://github.com/night0721/cath/blob/master/LICENSE) for more information.
 
 # Support, Feature Request & Bug Reports
 
