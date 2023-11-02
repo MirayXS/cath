@@ -31,10 +31,9 @@ yarn add cath
 ### Launch of the module
 
 ```js
-const cath = require("cath");
-
-const reddit_data = await cath.getreddit("meme");
-console.log(reddit_data); // returns an object
+const cath = require("cath")l
+const redditdata = await cath.getreddit("meme");
+console.log(redditdata); // returns a object
 
 const answer = await cath.random8ball();
 console.log(answer); // a random answer from 8ball
@@ -42,7 +41,7 @@ console.log(answer); // a random answer from 8ball
 
 # License
 
-NullValkyrie is licensed under the GNU Public License v3.0. See [LICENSE](https://github.com/night0721/NullValkyrie/blob/master/LICENSE) for more information.
+NullValkyrie is licensed under the GNU Public License v3.0. See [LICENSE](https://github.com/night0721/cath/blob/master/LICENSE) for more information.
 
 # Support, Feature Request & Bug Reports
 
