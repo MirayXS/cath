@@ -1,6 +1,6 @@
 {
   "name": "cath",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A powerful package that can interact with Cath API",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://codeberg.org/night0721/cath.git"
+    "url": "https://codeberg.org/night0721/cath.git"
   },
   "bugs": {
     "url": "https://codeberg.org/night0721/cath/issues"
